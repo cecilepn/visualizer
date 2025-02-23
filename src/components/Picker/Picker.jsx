@@ -37,10 +37,7 @@ const Picker = () => {
   const [current, setCurrent] = useState(0)
 
   const pickVisualizer = index => {
-    // changer visuellement la liste
     setCurrent(index)
-
-    // appeler la méthode qui permet de changer d'objet 3D
     scene.pickVisualizer(index)
   }
 

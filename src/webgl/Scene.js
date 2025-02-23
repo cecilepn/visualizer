@@ -55,7 +55,7 @@ class Scene {
       .onChange(value => {
         this.bloomPass.threshold = value
       })
-      .listen() // rafraichit visuellement la GUI avec la nouvelle valeur
+      .listen()
 
     this.bloomFolder
       .add(this.bloomParams, 'strength', 0, 3)
@@ -160,7 +160,7 @@ class Scene {
       1000
     )
 
-    // this.camera.position.z = 20;
+    this.camera.position.z = 200
   }
 
   setupRenderer() {

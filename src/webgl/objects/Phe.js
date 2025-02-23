@@ -1,56 +1,57 @@
 import * as THREE from 'three'
 import audioController from '../../utils/AudioController'
 import scene from '../Scene'
+import vertexShader from '../shaders/phe/vertex.glsl'
+import fragmentShader from '../shaders/phe/fragment.glsl'
 
 export default class Phe {
   constructor() {
     this.group = new THREE.Group()
 
-    this.matcap = scene.textureLoader.load('/textures/matcap-logo.png')
-
-    this.material = new THREE.MeshMatcapMaterial({
-      matcap: this.matcap
+    this.material = new THREE.ShaderMaterial({
+      uniforms: {
+        uAudioFrequency: { value: 0 },
+        uTime: { value: 0 }
+      },
+      vertexShader,
+      fragmentShader
     })
 
-    this.testMaterial = new THREE.MeshNormalMaterial()
-
-    this.left = null
-    this.right = null
-    this.top = null
-    this.bottom = null
-
-    this.sphere = null
+    this.object = null
 
     scene.gltfLoader.load('/models/logo.glb', gltf => {
       this.group = gltf.scene
       this.group.traverse(object => {
-        if (object.type === 'Mesh') {
+        if (object.isMesh) {
           object.material = this.material
+          object.geometry.computeVertexNormals()
         }
       })
-      console.log(gltf.scene)
 
-      this.sphere = this.group.getObjectByName('ImageToStlcom_logo')
-      this.sphere.material = this.material
-
-      //   this.group.rotation.x = Math.PI / 2
+      this.object = this.group.getObjectByName('ImageToStlcom_logo')
     })
+
+    scene.scene.add(this.group)
   }
-  //
+
   update() {
-    // this.group.rotation.y += 0.001
-    // this.group.rotation.z += 0.002
-    // const remappedFrequency = audioController.fdata[0] / 255 // va environ de 0 à 1
-    // const scale = 0.75 + remappedFrequency
-    // const scale2 = 1 + remappedFrequency / 2
-    // this.sphere.scale.set(scale, scale, scale)
-    // this.left.scale.set(scale2, scale2, scale2)
-    // this.right.scale.set(scale2, scale2, scale2)
-    // this.bottom.scale.set(scale2, scale2, scale2)
-    // this.top.scale.set(scale2, scale2, scale2)
-    // this.left.position.x = -1 + remappedFrequency
-    // this.right.position.x = 1 - remappedFrequency
-    // this.top.position.z = -1 + remappedFrequency
-    // this.bottom.position.z = 1 - remappedFrequency
+    if (!this.object) return
+    if (!audioController.fdata || audioController.fdata.length === 0) return
+
+    const remappedFrequency = (audioController.fdata[0] || 0) / 255
+    const geometry = this.object.geometry
+
+    if (geometry) {
+      const positionAttribute = geometry.attributes.position
+      if (!positionAttribute) return
+
+      const vertexCount = positionAttribute.count
+      for (let i = 0; i < vertexCount; i++) {
+        let z = positionAttribute.getZ(i)
+        let variation = (Math.random() * 0.2 - 0.1) * remappedFrequency
+        positionAttribute.setZ(i, z + variation)
+      }
+      positionAttribute.needsUpdate = true
+    }
   }
 }
