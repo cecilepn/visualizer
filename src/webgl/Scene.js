@@ -14,6 +14,7 @@ import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
 import Line from './objects/Line'
 import Board from './objects/Board'
 import LogoIut from './objects/LogoIut'
+import Phe from './objects/Phe'
 import Cover from './objects/Cover'
 import Character from './objects/Character'
 import audioController from '../utils/AudioController'
@@ -119,6 +120,7 @@ class Scene {
     this.line = new Line()
     this.board = new Board()
     this.logoIut = new LogoIut()
+    this.phe = new Phe()
     this.cover = new Cover()
     this.cube = new Cube()
     this.character = new Character()
@@ -196,11 +198,16 @@ class Scene {
         this.currentObject = this.logoIut
         break
       case 3:
+        // logo phe
+        this.camera.position.z = 70
+        this.currentObject = this.phe
+        break
+      case 4:
         // cover
         this.camera.position.z = 10
         this.currentObject = this.cover
         break
-      case 4:
+      case 5:
         // cube
         this.bloomParams.threshold = 0.6
         this.bloomPass.threshold = 0.6
@@ -208,7 +215,7 @@ class Scene {
         this.camera.position.z = 5
         this.currentObject = this.cube
         break
-      case 5:
+      case 6:
         // character
         this.camera.position.z = 5
         this.currentObject = this.character

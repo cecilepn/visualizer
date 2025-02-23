@@ -37,10 +37,7 @@ const Tracks = () => {
 
   const onKeyDown = e => {
     if (e.keyCode === 13 && e.target.value !== '') {
-      // l'utilisateur a appuyé sur sa touche entrée
       const userInput = e.target.value
-
-      // appeler la fonction
       getSongs(userInput)
     }
   }
@@ -52,21 +49,18 @@ const Tracks = () => {
 
     if (response.ok) {
       response = await response.json()
-
-      // récupérer le tableau de tracks du store existant
       const _tracks = [...tracks]
 
-      // pour chaque track renvoyée par l'API
       response.data.forEach(result => {
         _tracks.push(result)
       })
 
-      // màj le store
       setTracks(_tracks)
 
-      console.log(_tracks)
+      // console.log(_tracks)
     } else {
-      // erreurs
+      // Handle errors
+      console.error('Error fetching songs from the API')
     }
   }
 
@@ -105,7 +99,7 @@ const Tracks = () => {
 
         <input
           type="text"
-          placeholder="Chercher un artiste"
+          placeholder="Search for an artist or a track..."
           className={s.searchInput}
           onKeyDown={onKeyDown}
         />

@@ -16,16 +16,20 @@ const VISUALIZERS = [
     index: 2
   },
   {
-    name: 'Cover',
+    name: 'Logo Phe',
     index: 3
   },
   {
-    name: 'Cube',
+    name: 'Cover',
     index: 4
   },
   {
-    name: 'Character',
+    name: 'Cube',
     index: 5
+  },
+  {
+    name: 'Character',
+    index: 6
   }
 ]
 
