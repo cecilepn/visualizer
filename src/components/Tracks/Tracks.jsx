@@ -90,6 +90,7 @@ const Tracks = () => {
               title={track.title}
               duration={track.duration}
               cover={track.album.cover_xl}
+              genre={track.genre}
               // artists={track.artists}
               src={track.preview}
               index={i}

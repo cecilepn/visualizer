@@ -173,6 +173,13 @@ class Scene {
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
   }
 
+  setCharacterGenre(genre) {
+    console.log(genre)
+    if (this.character) {
+      this.character.playAnimation(genre)
+    }
+  }
+
   pickVisualizer(index) {
     // on remove le group qui est rendu
     this.scene.remove(this.currentObject.group)

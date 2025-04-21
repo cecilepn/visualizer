@@ -1,5 +1,6 @@
 import audioController from '../../utils/AudioController'
 import scene from '../../webgl/Scene'
+import { detectGenreWithAPI } from '../../utils/detectGenreWithAPI'
 import s from './Track.module.scss'
 
 const Track = ({ title, cover, src, duration, artist, index }) => {
@@ -14,9 +15,18 @@ const Track = ({ title, cover, src, duration, artist, index }) => {
     return minutes + ':' + seconds
   }
 
-  const onClick = () => {
-    audioController.play(src)
-    scene.cover.setCover(cover)
+  const onClick = async () => {
+    try {
+      const response = await fetch(src)
+      const blob = await response.blob()
+      const genre = await detectGenreWithAPI(blob)
+
+      audioController.play(src)
+      scene.cover.setCover(cover)
+      scene.setCharacterGenre(genre)
+    } catch (error) {
+      console.error('Erreur lors du traitement du morceau :', error)
+    }
   }
 
   return (
@@ -26,11 +36,6 @@ const Track = ({ title, cover, src, duration, artist, index }) => {
         <img src={cover} alt="" className={s.cover} />
         <div className={s.details}>
           <span className={s.trackName}>{title}</span>
-          {/* {artist.map((artist, i) => (
-            <span key={artist + i} className={s.artistName}>
-              {artist}
-            </span>
-          ))} */}
         </div>
       </div>
       <span className={s.duration}>{getSeconds()}</span>

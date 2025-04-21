@@ -3,19 +3,17 @@ import audioController from '../../utils/AudioController'
 import scene from '../Scene'
 
 export default class Character {
-  constructor(genre = 'gangnamstyle') {
+  constructor() {
     this.group = null
     this.mixer = null
+    this.actions = {}
+    this.currentAction = null
+
     this.material = new THREE.MeshBasicMaterial({ color: 0xffffff })
 
-    const modelPath = this.getModelPathFromGenre(genre)
-    scene.gltfLoader.load(modelPath, gltf => {
+    scene.gltfLoader.load('/models/dancing.glb', gltf => {
       this.group = gltf.scene
-      this.group.traverse(object => {
-        if (object.isMesh || object.isSkinnedMesh) {
-          object.material = this.material
-        }
-      })
+      this.group.position.y = -gltf.scene.position.y
 
       this.group.traverse(object => {
         if (object.type === 'Mesh' || object.type === 'SkinnedMesh') {
@@ -24,32 +22,51 @@ export default class Character {
       })
 
       this.mixer = new THREE.AnimationMixer(this.group)
-      const action = this.mixer.clipAction(gltf.animations[0])
-      action.play()
 
-      const box = new THREE.Box3().setFromObject(this.group)
-      const center = new THREE.Vector3()
-      box.getCenter(center)
-      const size = new THREE.Vector3()
-      box.getSize(size)
+      gltf.animations.forEach(clip => {
+        this.actions['default'] = this.mixer.clipAction(clip)
+      })
 
-      this.group.position.y -= center.y
-      this.group.position.x -= center.x
-      this.group.position.z -= center.z
+      this.playAnimation('default')
     })
   }
 
-  getModelPathFromGenre(genre) {
-    switch (genre.toLowerCase()) {
-      case 'hiphop':
-        return '/models/hiphop.glb'
-      case 'gangnamstyle':
-        return '/models/gangnamstyle.glb'
-      default:
-        return '/models/dancing.glb'
+  playAnimation(name) {
+    if (this.currentAction) {
+      this.currentAction.stop()
+    }
+
+    if (this.actions[name]) {
+      this.currentAction = this.actions[name]
+      this.currentAction.play()
+    } else {
+      scene.gltfLoader.load(`/models/${name}.glb`, gltf => {
+        if (this.group) {
+          scene.scene.remove(this.group)
+        }
+
+        this.group = gltf.scene
+        this.group.position.y = -gltf.scene.position.y
+
+        this.group.traverse(object => {
+          if (object.type === 'Mesh' || object.type === 'SkinnedMesh') {
+            object.material = this.material
+          }
+        })
+
+        scene.scene.add(this.group)
+
+        this.mixer = new THREE.AnimationMixer(this.group)
+        const clip = gltf.animations[0]
+        const action = this.mixer.clipAction(clip)
+        this.actions[name] = action
+        this.currentAction = action
+        action.play()
+      })
     }
   }
-  update(time, deltaTime) {
+
+  update(deltaTime) {
     if (this.mixer) {
       this.mixer.update(deltaTime / 1000)
     }
