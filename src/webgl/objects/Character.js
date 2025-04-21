@@ -3,15 +3,13 @@ import audioController from '../../utils/AudioController'
 import scene from '../Scene'
 
 export default class Character {
-  constructor() {
+  constructor(genre = 'gangnamstyle') {
     this.group = null
     this.mixer = null
+    this.material = new THREE.MeshBasicMaterial({ color: 0xffffff })
 
-    this.material = new THREE.MeshBasicMaterial({
-      color: 0xffffff
-    })
-
-    scene.gltfLoader.load('/models/dancing.glb', gltf => {
+    const modelPath = this.getModelPathFromGenre(genre)
+    scene.gltfLoader.load(modelPath, gltf => {
       this.group = gltf.scene
       this.group.traverse(object => {
         if (object.isMesh || object.isSkinnedMesh) {
@@ -41,6 +39,16 @@ export default class Character {
     })
   }
 
+  getModelPathFromGenre(genre) {
+    switch (genre.toLowerCase()) {
+      case 'hiphop':
+        return '/models/hiphop.glb'
+      case 'gangnamstyle':
+        return '/models/gangnamstyle.glb'
+      default:
+        return '/models/dancing.glb'
+    }
+  }
   update(time, deltaTime) {
     if (this.mixer) {
       this.mixer.update(deltaTime / 1000)

@@ -32,7 +32,7 @@ const Tracks = () => {
   }, [])
 
   tracks.map((track, i) => {
-    console.log(track.artist)
+    // console.log(track.artist)
   })
 
   const onKeyDown = e => {

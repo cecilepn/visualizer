@@ -44,7 +44,7 @@ export default class Cover {
     // Load the texture
     this.texture = scene.textureLoader.load(src)
 
-    console.log(this.material.uniforms)
+    // console.log(this.material.uniforms)
     this.material.uniforms.uMap.value = this.texture
 
     // Force material recompilation

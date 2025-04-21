@@ -16,7 +16,7 @@ export default function AudioVisualizer3D() {
   const detectGenreWithAPI = async file => {
     const formData = new FormData()
     formData.append('file', file)
-    formData.append('api_token', 'YOUR_AUDD_API_KEY') // Replace with your actual key
+    formData.append('api_token', '0d1cb9502120715c53a1737f9d6fb09e')
 
     try {
       const res = await fetch('https://api.audd.io/', {
@@ -27,7 +27,6 @@ export default function AudioVisualizer3D() {
       console.log('Genre detection result:', json)
       const genre = json.result?.genre?.toLowerCase()
 
-      // Simple mapping from genre to preset
       if (genre?.includes('lofi') || genre?.includes('chill')) return 'chill'
       if (
         genre?.includes('techno') ||
