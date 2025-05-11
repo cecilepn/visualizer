@@ -1,14 +1,22 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import s from './queueBtn.module.scss'
+import useStore from '../../utils/store'
 
-const QueueBtn = ({ onAdd }) => {
+const QueueBtn = ({ track }) => {
+  const queue = useStore(state => state.queue)
+  const addToQueue = useStore(state => state.addToQueue)
   const [added, setAdded] = useState(false)
 
-  const handleClick = () => {
+  useEffect(() => {
+    const isInQueue = queue.some(t => t.index === track.index)
+    setAdded(isInQueue)
+  }, [queue, track])
+
+  const handleClick = e => {
+    e.stopPropagation()
     if (!added) {
-      onAdd?.()
+      addToQueue(track)
       setAdded(true)
-      setTimeout(() => setAdded(false), 1500)
     }
   }
 

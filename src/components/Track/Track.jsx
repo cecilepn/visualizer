@@ -34,7 +34,6 @@ const Track = ({
   const addToQueue = useStore(state => state.addToQueue)
 
   const onAddToQueue = e => {
-    e.stopPropagation()
     addToQueue({
       title,
       cover,
@@ -78,7 +77,7 @@ const Track = ({
       </div>
       <span className={s.artistName}>{artist}</span>
       <span className={s.duration}>{getSeconds()}</span>
-      <QueueBtn />
+      <QueueBtn track={{ title, cover, src, duration, artist, index }} />
     </div>
   )
 }
