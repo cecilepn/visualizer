@@ -44,7 +44,9 @@ export default class LogoIut {
       this.bottom = this.group.getObjectByName('BezierCircle001')
 
       this.group.rotation.x = Math.PI / 2
+      this.renderNode = this.group
     })
+    this.renderNode = this.group
   }
 
   update() {

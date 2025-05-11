@@ -27,11 +27,12 @@ export default class Phe {
           object.geometry.computeVertexNormals()
         }
       })
-
       this.object = this.group.getObjectByName('ImageToStlcom_logo')
+
+      this.renderNode = this.group
     })
 
-    scene.scene.add(this.group)
+    this.renderNode = this.group
   }
 
   update() {

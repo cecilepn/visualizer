@@ -51,6 +51,7 @@ export default class Character {
     this.genre = 'default'
 
     this.material = new THREE.MeshBasicMaterial({ color: 0xffffff })
+    this.renderNode = this.container
 
     this.loadInitialModel()
   }

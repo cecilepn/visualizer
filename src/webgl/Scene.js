@@ -181,7 +181,7 @@ class Scene {
 
   pickVisualizer(index) {
     // on remove le group qui est rendu
-    this.scene.remove(this.currentObject.group)
+    this.scene.remove(this.currentObject.renderNode)
 
     // on change le current object
     switch (index) {
@@ -231,7 +231,7 @@ class Scene {
     }
 
     // on add le nouveau group
-    this.scene.add(this.currentObject.group)
+    this.scene.add(this.currentObject.renderNode)
   }
 
   tick = (time, deltaTime, frame) => {

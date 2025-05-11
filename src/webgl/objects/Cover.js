@@ -22,8 +22,9 @@ export default class Cover {
     })
 
     this.mesh = new THREE.Points(this.geometry, this.material)
-
     this.group.add(this.mesh)
+
+    this.renderNode = this.group
 
     this.addTweaks()
   }
