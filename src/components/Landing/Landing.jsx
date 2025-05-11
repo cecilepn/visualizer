@@ -22,7 +22,7 @@ const Landing = () => {
         <p>
           Exploration and use of three.js, GSAP, React, and the Web Audio API.
         </p>
-        <p>Drag and drop MP3 files to visualize them in 3D.</p>
+        <p>Click on TRACKLIST to search for a song.</p>
 
         <Button label={'Start'} onClick={onClick} />
       </div>
