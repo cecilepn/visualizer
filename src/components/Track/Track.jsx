@@ -61,7 +61,7 @@ const Track = ({
       <span className={s.artistName}>{artist}</span>
       <span className={s.duration}>{formatDuration()}</span>
 
-      <QueueBtn track={{ title, cover, src, duration, artist, index }} />
+      {/* <QueueBtn track={{ title, cover, src, duration, artist, index }} /> */}
     </div>
   )
 }
