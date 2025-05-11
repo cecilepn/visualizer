@@ -53,9 +53,7 @@ class AudioController {
   }
 
   play = src => {
-    if (this.audio.src !== src) {
-      this.audio.src = src
-    }
+    this.audio.src = src
     this.audio.play()
   }
 

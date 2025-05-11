@@ -9,12 +9,6 @@ const Tracks = () => {
   const [showTracks, setShowTracks] = useState(false)
   const { tracks, setTracks } = useStore()
 
-  // TODO : Slider (infini ou non) pour sélectionner les tracks
-
-  // TODO : Fonction de tri / filtre sur les tracks, par nom, durée...
-
-  // TODO : Récupérer les tracks du store
-
   const onKeyDown = e => {
     if (e.keyCode === 13 && e.target.value !== '') {
       const userInput = e.target.value

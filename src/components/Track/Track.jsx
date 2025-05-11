@@ -3,6 +3,7 @@ import scene from '../../webgl/Scene'
 import s from './Track.module.scss'
 import { getSongInfos } from '../../utils/getSongInfos'
 import useStore from '../../utils/store'
+import QueueBtn from '../QueueBtn/queueBtn'
 
 const Track = ({
   title,
@@ -29,6 +30,20 @@ const Track = ({
   const currentTrack = useStore(state => state.currentTrack)
   const setIsPlaying = useStore(state => state.setIsPlaying)
   const isActive = currentTrack?.index === index
+
+  const addToQueue = useStore(state => state.addToQueue)
+
+  const onAddToQueue = e => {
+    e.stopPropagation()
+    addToQueue({
+      title,
+      cover,
+      src,
+      duration,
+      artist,
+      index
+    })
+  }
 
   const onClick = async () => {
     try {
@@ -63,6 +78,7 @@ const Track = ({
       </div>
       <span className={s.artistName}>{artist}</span>
       <span className={s.duration}>{getSeconds()}</span>
+      <QueueBtn />
     </div>
   )
 }
