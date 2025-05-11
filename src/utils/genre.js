@@ -25,7 +25,8 @@ const genreCategories = {
     'Bubblegum Pop',
     'Art Pop'
   ],
-  Électronique: [
+  Electronic: [
+    'Electronic',
     'EDM',
     'House',
     'Techno',
@@ -39,26 +40,26 @@ const genreCategories = {
     'Minimal',
     'Future Bass'
   ],
-  Classique: [
-    'Musique Classique',
-    'Opéra',
-    'Musique Contemporaine',
-    'Musique de Chambre',
-    'Musique Chorale',
-    'Néoclassique'
+  Classical: [
+    'Classical',
+    'Opera',
+    'Contemporary Classical',
+    'Chamber Music',
+    'Choral Music',
+    'Neoclassical'
   ],
-  'Hip-Hop / Rap': [
-    'Rap',
+  HipHop: [
     'Hip-Hop',
+    'Rap',
     'Trap',
     'Boom Bap',
     'Drill',
     'Cloud Rap',
-    'Old School',
+    'Old School Hip-Hop',
     'Lo-fi Hip-Hop',
     'Freestyle Rap'
   ],
-  Métal: [
+  Metal: [
     'Heavy Metal',
     'Death Metal',
     'Black Metal',
@@ -70,20 +71,7 @@ const genreCategories = {
     'Groove Metal',
     'Progressive Metal'
   ],
-  'Folk / World / Country': [
-    'Folk',
-    'Country',
-    'Bluegrass',
-    'Americana',
-    'Chanson française',
-    'Flamenco',
-    'Reggae',
-    'Afrobeat',
-    'Rai',
-    'Musique Celtique',
-    'Musiques Traditionnelles'
-  ],
-  'Jazz / Blues': [
+  Jazz: [
     'Jazz',
     'Bebop',
     'Smooth Jazz',
@@ -95,7 +83,7 @@ const genreCategories = {
     'Chicago Blues',
     'Electric Blues'
   ],
-  'Soul / Funk / R&B': [
+  Soul: [
     'Soul',
     'Funk',
     'R&B',
@@ -104,7 +92,7 @@ const genreCategories = {
     'Quiet Storm',
     'New Jack Swing'
   ],
-  Autres: [
+  Other: [
     'Reggaeton',
     'Ska',
     'Dancehall',
@@ -112,18 +100,30 @@ const genreCategories = {
     'Disco',
     'Zouk',
     'Schlager',
-    'Musique Expérimentale',
+    'Experimental Music',
     'Noise',
     'Spoken Word',
-    'Musique de film',
-    'Musique de jeux vidéo',
-    'Musique religieuse'
+    'Film Music',
+    'Video Game Music',
+    'Religious Music',
+    'Folk',
+    'Country',
+    'Bluegrass',
+    'Americana',
+    'French Chanson',
+    'Flamenco',
+    'Reggae',
+    'Afrobeat',
+    'Rai',
+    'Celtic Music',
+    'Traditional Music'
   ]
 }
 
 function getGenreCategory(genre) {
   for (const [category, genres] of Object.entries(genreCategories)) {
     if (genres.map(g => g.toLowerCase()).includes(genre.toLowerCase())) {
+      console.log('category', category)
       return category
     }
   }

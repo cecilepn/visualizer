@@ -9,14 +9,10 @@ export const getSongInfos = async (title, artist) => {
       )}&track=${encodeURIComponent(title)}&format=json`
     )
     const data = await response.json()
-    console.log('Last.fm response:', data)
-
     const tags = data?.track?.toptags?.tag || []
     const genreOfSong = tags[0]?.name?.toLowerCase()
     if (genreOfSong === 'myspotigrambot') return 'default'
-
     const genre = getGenreCategory(genreOfSong)
-    console.log(genre)
     return genre.toLowerCase()
   } catch (err) {
     console.error('Erreur Last.fm:', err)
