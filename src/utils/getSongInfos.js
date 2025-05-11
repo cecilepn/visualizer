@@ -1,3 +1,5 @@
+import { getGenreCategory } from './genre'
+
 export const getSongInfos = async (title, artist) => {
   const apiKey = import.meta.env.VITE_API_KEY
   try {
@@ -10,8 +12,12 @@ export const getSongInfos = async (title, artist) => {
     console.log('Last.fm response:', data)
 
     const tags = data?.track?.toptags?.tag || []
-    const genre = tags[0]?.name?.toLowerCase()
-    return genre || 'default'
+    const genreOfSong = tags[0]?.name?.toLowerCase()
+    if (genreOfSong === 'myspotigrambot') return 'default'
+
+    const genre = getGenreCategory(genreOfSong)
+    console.log(genre)
+    return genre
   } catch (err) {
     console.error('Erreur Last.fm:', err)
     return 'default'

@@ -3,7 +3,15 @@ import scene from '../../webgl/Scene'
 import s from './Track.module.scss'
 import { getSongInfos } from '../../utils/getSongInfos'
 
-const Track = ({ title, cover, src, duration, artist, index }) => {
+const Track = ({
+  title,
+  cover,
+  src,
+  duration,
+  artist,
+  index,
+  onSelectTrack
+}) => {
   const getSeconds = () => {
     const minutes = Math.floor(duration / 60)
     let seconds = Math.round(duration - minutes * 60)
@@ -19,10 +27,10 @@ const Track = ({ title, cover, src, duration, artist, index }) => {
     try {
       audioController.play(src)
       scene.cover.setCover(cover)
-
       const genre = await getSongInfos(title, artist)
-      console.log(genre)
-      // scene.setCharacterGenre(genre)
+      scene.setCharacterGenre(genre)
+
+      onSelectTrack?.()
     } catch (error) {
       console.error('Erreur lors du traitement du morceau :', error)
     }

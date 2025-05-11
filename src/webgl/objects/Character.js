@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import audioController from '../../utils/AudioController'
 import scene from '../Scene'
 
+const getGenreModelPath = genre => `/models/dancing/${genre.toLowerCase()}.glb`
 export default class Character {
   constructor() {
     this.group = null
@@ -11,7 +12,7 @@ export default class Character {
 
     this.material = new THREE.MeshBasicMaterial({ color: 0xffffff })
 
-    scene.gltfLoader.load('/models/dancing.glb', gltf => {
+    scene.gltfLoader.load('/models/dancing/default.glb', gltf => {
       this.group = gltf.scene
       this.group.position.y = -gltf.scene.position.y
 
@@ -40,7 +41,8 @@ export default class Character {
       this.currentAction = this.actions[name]
       this.currentAction.play()
     } else {
-      scene.gltfLoader.load(`/models/${name}.glb`, gltf => {
+      const path = getGenreModelPath(name)
+      scene.gltfLoader.load(path, gltf => {
         if (this.group) {
           scene.scene.remove(this.group)
         }

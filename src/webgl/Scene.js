@@ -174,7 +174,6 @@ class Scene {
   }
 
   setCharacterGenre(genre) {
-    console.log(genre)
     if (this.character) {
       this.character.playAnimation(genre)
     }

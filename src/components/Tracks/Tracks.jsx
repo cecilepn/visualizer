@@ -69,6 +69,7 @@ const Tracks = () => {
               artist={track.artist.name}
               src={track.preview}
               index={i}
+              onSelectTrack={() => setShowTracks(false)}
             />
           ))}
         </div>
