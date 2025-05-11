@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import gsap from 'gsap'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
-import Stats from 'three/examples/jsm/libs/stats.module.js'
+// import Stats from 'three/examples/jsm/libs/stats.module.js'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { GUI } from 'three/addons/libs/lil-gui.module.min.js'
 
@@ -35,7 +35,7 @@ class Scene {
     this.setupCamera()
     this.setupRenderer()
     this.setupControls()
-    this.setupStats()
+    // this.setupStats()
     this.setupPostProcessing()
     this.setupGUI()
 
@@ -110,10 +110,10 @@ class Scene {
     this.controls = new OrbitControls(this.camera, this.canvas)
   }
 
-  setupStats() {
-    this.stats = new Stats()
-    document.body.appendChild(this.stats.dom)
-  }
+  // setupStats() {
+  //   this.stats = new Stats()
+  //   document.body.appendChild(this.stats.dom)
+  // }
 
   addObjects() {
     // Déclaration des objets
@@ -235,7 +235,7 @@ class Scene {
   }
 
   tick = (time, deltaTime, frame) => {
-    this.stats.begin()
+    // this.stats.begin()
 
     // this.renderer.render(this.scene, this.camera);
     this.composer.render() // prend le relais sur le renderer pour le post-processing
@@ -244,7 +244,7 @@ class Scene {
       this.currentObject.update(time, deltaTime)
     }
 
-    this.stats.end()
+    // this.stats.end()
   }
 }
 

@@ -41,7 +41,7 @@ const Queue = () => {
   return (
     <div className={s.queueContainer}>
       <div className={s.header} onClick={toggleQueue}>
-        <p>Next songs</p>
+        {queue.length === 0 ? <p></p> : <p>Next songs</p>}
         {isOpen ? (
           <ChevronUp size={20} className={s.arrowIcon} />
         ) : (
