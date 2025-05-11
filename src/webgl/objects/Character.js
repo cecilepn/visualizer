@@ -109,7 +109,6 @@ export default class Character {
   changeModel() {
     const path = getGenreModelPath(this.genre, this.currentModelName)
     this.currentModelName = path.split('/').pop().replace('.glb', '')
-
     scene.gltfLoader.load(path, gltf => {
       if (this.group) {
         this.container.remove(this.group)

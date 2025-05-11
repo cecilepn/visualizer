@@ -8,9 +8,10 @@ const QueueBtn = ({ track }) => {
   const [added, setAdded] = useState(false)
 
   useEffect(() => {
+    if (!track) return
     const isInQueue = queue.some(t => t.index === track.index)
     setAdded(isInQueue)
-  }, [queue, track])
+  }, [queue, track.index])
 
   const handleClick = e => {
     e.stopPropagation()
@@ -21,7 +22,10 @@ const QueueBtn = ({ track }) => {
   }
 
   return (
-    <button className={`${s.queueBtn}`} onClick={handleClick}>
+    <button
+      className={s.queueBtn}
+      onClick={handleClick}
+      aria-label={added ? 'Track already in queue' : 'Add track to queue'}>
       {added ? '✓' : '+'}
     </button>
   )

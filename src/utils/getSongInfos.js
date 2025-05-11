@@ -8,21 +8,27 @@ export const getSongInfos = async (title, artist) => {
         artist
       )}&track=${encodeURIComponent(title)}&format=json`
     )
+
     const data = await response.json()
+    const trackName = data?.track?.name?.toLowerCase() || ''
+    const artistName = data?.track?.artist?.name?.toLowerCase() || ''
 
-    const artistName = data.track.artist.name.toLowerCase()
-    const thrillerSong =
-      data.track.name === 'Thriller (Single Version)' || 'Thriller'
+    // Cas spécial pour "Thriller"
+    if (artistName === 'michael jackson' && trackName.includes('thriller')) {
+      return 'thriller'
+    }
 
-    if (thrillerSong) return 'thriller'
+    // Autres cas spéciaux
     if (artistName === 'michael jackson') return 'mj'
     if (artistName === 'beyoncé') return 'queenB'
 
+    // Récupération des tags de genre
     const tags = data?.track?.toptags?.tag || []
     const genreOfSong = tags[0]?.name?.toLowerCase()
-    if (genreOfSong === 'myspotigrambot') return 'default'
-    const genre = getGenreCategory(genreOfSong)
 
+    if (genreOfSong === 'myspotigrambot') return 'default'
+
+    const genre = getGenreCategory(genreOfSong)
     return genre.toLowerCase()
   } catch (err) {
     console.error('Erreur Last.fm:', err)

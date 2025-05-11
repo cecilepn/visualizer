@@ -15,68 +15,52 @@ const Track = ({
   onSelectTrack
 }) => {
   const setCurrentTrack = useStore(state => state.setCurrentTrack)
-
-  const getSeconds = () => {
-    const minutes = Math.floor(duration / 60)
-    let seconds = Math.round(duration - minutes * 60)
-
-    if (seconds < 10) {
-      seconds = '0' + seconds
-    }
-
-    return minutes + ':' + seconds
-  }
-
   const currentTrack = useStore(state => state.currentTrack)
   const setIsPlaying = useStore(state => state.setIsPlaying)
   const isActive = currentTrack?.index === index
 
-  const addToQueue = useStore(state => state.addToQueue)
-
-  const onAddToQueue = e => {
-    addToQueue({
-      title,
-      cover,
-      src,
-      duration,
-      artist,
-      index
-    })
+  const formatDuration = () => {
+    const minutes = Math.floor(duration / 60)
+    const seconds = Math.floor(duration % 60)
+      .toString()
+      .padStart(2, '0')
+    return `${minutes}:${seconds}`
   }
 
-  const onClick = async () => {
+  const handleClick = async () => {
     try {
-      setCurrentTrack({
-        title,
-        cover,
-        src,
-        duration,
-        artist,
-        index
-      })
+      const track = { title, cover, src, duration, artist, index }
+
+      setCurrentTrack(track)
       setIsPlaying(true)
       audioController.play(src)
       scene.cover.setCover(cover)
+
       const genre = await getSongInfos(title, artist)
       scene.setCharacterGenre(genre)
 
-      onSelectTrack?.()
+      if (onSelectTrack) onSelectTrack()
     } catch (error) {
       console.error('Erreur lors du traitement du morceau :', error)
     }
   }
 
   return (
-    <div className={`${s.track} ${isActive ? s.active : ''}`} onClick={onClick}>
+    <div
+      className={`${s.track} ${isActive ? s.active : ''}`}
+      onClick={handleClick}>
       <span className={s.order}>{index + 1}</span>
+
       <div className={s.title}>
-        <img src={cover} alt="" className={s.cover} />
+        <img src={cover} alt={`Cover of ${title}`} className={s.cover} />
         <div className={s.details}>
           <span className={s.trackName}>{title}</span>
         </div>
       </div>
+
       <span className={s.artistName}>{artist}</span>
-      <span className={s.duration}>{getSeconds()}</span>
+      <span className={s.duration}>{formatDuration()}</span>
+
       <QueueBtn track={{ title, cover, src, duration, artist, index }} />
     </div>
   )
