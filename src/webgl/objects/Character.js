@@ -3,8 +3,8 @@ import audioController from '../../utils/AudioController'
 import scene from '../Scene'
 
 const genreModels = {
-  hiphop: ['hiphop_1', 'hiphop_2'],
-  pop: ['pop_1', 'pop_2', 'pop_3'],
+  hiphop: ['hiphop_1', 'hiphop_2', 'hiphop_3'],
+  pop: ['pop_1', 'pop_2', 'pop_3', 'pop_4'],
   rock: ['rock'],
   classic: ['classic_1', 'classic_2', 'classic_3'],
   default: [
@@ -15,7 +15,10 @@ const genreModels = {
     'silly_4',
     'silly_5',
     'silly_6'
-  ]
+  ],
+  queenB: ['beyonce'],
+  mj: ['michael'],
+  thriller: ['thriller_1', 'thriller_2']
 }
 
 const normalizeGenre = genre => genre.toLowerCase().replace(/\s+/g, '')
@@ -58,9 +61,7 @@ export default class Character {
 
   loadInitialModel() {
     const path = getGenreModelPath(this.genre)
-    console.log('path', path)
     this.currentModelName = path.split('/').pop().replace('.glb', '')
-    console.log('currentModelName', this.currentModelName)
 
     scene.gltfLoader.load(path, gltf => {
       this.group = gltf.scene
@@ -108,10 +109,8 @@ export default class Character {
   changeModel() {
     const path = getGenreModelPath(this.genre, this.currentModelName)
     this.currentModelName = path.split('/').pop().replace('.glb', '')
-    console.log('change currentModelName', this.currentModelName)
 
     scene.gltfLoader.load(path, gltf => {
-      // Supprimer le modèle précédent
       if (this.group) {
         this.container.remove(this.group)
       }
@@ -120,8 +119,6 @@ export default class Character {
       this.centerGroup(this.group)
       this.applyMaterial(this.group)
       this.container.add(this.group)
-
-      console.log('this.group', this.group)
 
       // Gestion des animations
       this.mixer = new THREE.AnimationMixer(this.group)
@@ -135,10 +132,10 @@ export default class Character {
 
   update(deltaTime) {
     if (this.mixer) {
-      this.mixer.update(deltaTime * 0.001)
+      this.mixer.update(1 / 60)
     }
 
-    this.switchTimer += deltaTime * 0.001
+    this.switchTimer += 1 / 60
     if (this.switchTimer >= this.switchInterval) {
       this.switchTimer = 0
       this.changeModel()

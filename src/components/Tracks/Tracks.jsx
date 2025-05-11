@@ -28,7 +28,6 @@ const Tracks = () => {
         _tracks.push(result)
       })
       setTracks(_tracks)
-      console.log(_tracks)
     } else {
       // Handle errors
       console.error('Error fetching songs from the API')

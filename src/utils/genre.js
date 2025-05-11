@@ -123,7 +123,6 @@ const genreCategories = {
 function getGenreCategory(genre) {
   for (const [category, genres] of Object.entries(genreCategories)) {
     if (genres.map(g => g.toLowerCase()).includes(genre.toLowerCase())) {
-      console.log('category', category)
       return category
     }
   }
