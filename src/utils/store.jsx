@@ -28,9 +28,6 @@ const useStore = create(set => ({
 
   playNextInQueue: () =>
     set(state => {
-      if (state.queue.length === 0) {
-        return { ...state, isPlaying: false }
-      }
       const [nextTrack, ...rest] = state.queue
       audioController.play(nextTrack.src)
       return {
@@ -39,17 +36,6 @@ const useStore = create(set => ({
         isPlaying: true
       }
     })
-
-  // addPlaylist: name =>
-  //   set(state => ({ playlists: { ...state.playlists, [name]: [] } })),
-
-  // addToPlaylist: (name, track) =>
-  //   set(state => ({
-  //     playlists: {
-  //       ...state.playlists,
-  //       [name]: [...state.playlists[name], track]
-  //     }
-  //   }))
 }))
 
 export default useStore
