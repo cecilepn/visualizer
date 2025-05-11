@@ -3,6 +3,7 @@ import scene from '../../webgl/Scene'
 import s from './Track.module.scss'
 import { getSongInfos } from '../../utils/getSongInfos'
 import useStore from '../../utils/store'
+import QueueButton from '../QueueButton/QueueButton'
 // import QueueBtn from '../QueueBtn/QueueBtn'
 
 const Track = ({
@@ -61,7 +62,7 @@ const Track = ({
       <span className={s.artistName}>{artist}</span>
       <span className={s.duration}>{formatDuration()}</span>
 
-      <QueueBtn track={{ title, cover, src, duration, artist, index }} />
+      <QueueButton track={{ title, cover, src, duration, artist, index }} />
     </div>
   )
 }
