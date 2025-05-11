@@ -18,6 +18,13 @@ const useStore = create(set => ({
 
   addToQueue: track => set(state => ({ queue: [...state.queue, track] })),
 
+  removeFromQueue: index =>
+    set(state => {
+      const updatedQueue = [...state.queue]
+      updatedQueue.splice(index, 1)
+      return { queue: updatedQueue }
+    }),
+
   playNextInQueue: () =>
     set(state => {
       if (state.queue.length === 0) return state
