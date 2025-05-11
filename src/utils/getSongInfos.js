@@ -17,6 +17,10 @@ export const getSongInfos = async (title, artist) => {
     if (artistName === 'michael jackson' && trackName.includes('thriller')) {
       return 'thriller'
     }
+    // Cas spécial pour 'rat dance'
+    if (artistName === 'joyful' && trackName.includes('chess')) {
+      return 'rat'
+    }
 
     // Autres cas spéciaux
     if (artistName === 'michael jackson') return 'mj'

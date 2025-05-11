@@ -18,7 +18,8 @@ const genreModels = {
   ],
   queenB: ['beyonce'],
   mj: ['michael'],
-  thriller: ['thriller_1', 'thriller_2']
+  thriller: ['thriller_1', 'thriller_2'],
+  rat: ['rat_dancing']
 }
 
 const normalizeGenre = genre => genre.toLowerCase().replace(/\s+/g, '')

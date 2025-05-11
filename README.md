@@ -13,6 +13,8 @@ Exploration and use of three.js, GSAP, React, and the Web Audio API.
 
 When you click on "Character", you'll see different animations depending on the song's genre — or sometimes the artist. Try searching for Michael Jackson (bonus: Thriller) or Beyoncé!
 
+Easter egg : 'joyful'
+
 More dancing animations are coming soon — stay tuned for future updates!
 
 # Credits
