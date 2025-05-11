@@ -3,6 +3,7 @@ import Track from '../Track/Track'
 import useStore from '../../utils/store'
 import fetchJsonp from 'fetch-jsonp'
 import s from './Tracks.module.scss'
+import NowPlaying from '../NowPlaying/NowPlaying'
 
 const Tracks = () => {
   const [showTracks, setShowTracks] = useState(false)
@@ -42,6 +43,7 @@ const Tracks = () => {
 
   return (
     <>
+      <NowPlaying />
       <div
         className={s.toggleTracks}
         onClick={() => setShowTracks(!showTracks)}>

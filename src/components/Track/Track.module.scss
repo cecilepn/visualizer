@@ -10,6 +10,11 @@
     background-color: rgba(white, 0.1);
   }
 
+  .active {
+    background-color: rgba(white, 0.2);
+    border: 2px solid white;
+  }
+
   .order {
     width: 10%;
   }

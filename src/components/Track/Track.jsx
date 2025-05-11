@@ -2,6 +2,7 @@ import audioController from '../../utils/AudioController'
 import scene from '../../webgl/Scene'
 import s from './Track.module.scss'
 import { getSongInfos } from '../../utils/getSongInfos'
+import useStore from '../../utils/store'
 
 const Track = ({
   title,
@@ -12,6 +13,8 @@ const Track = ({
   index,
   onSelectTrack
 }) => {
+  const setCurrentTrack = useStore(state => state.setCurrentTrack)
+
   const getSeconds = () => {
     const minutes = Math.floor(duration / 60)
     let seconds = Math.round(duration - minutes * 60)
@@ -23,8 +26,21 @@ const Track = ({
     return minutes + ':' + seconds
   }
 
+  const currentTrack = useStore(state => state.currentTrack)
+  const setIsPlaying = useStore(state => state.setIsPlaying)
+  const isActive = currentTrack?.index === index
+
   const onClick = async () => {
     try {
+      setCurrentTrack({
+        title,
+        cover,
+        src,
+        duration,
+        artist,
+        index
+      })
+      setIsPlaying(true)
       audioController.play(src)
       scene.cover.setCover(cover)
       const genre = await getSongInfos(title, artist)
@@ -37,7 +53,7 @@ const Track = ({
   }
 
   return (
-    <div className={s.track} onClick={onClick}>
+    <div className={`${s.track} ${isActive ? s.active : ''}`} onClick={onClick}>
       <span className={s.order}>{index + 1}</span>
       <div className={s.title}>
         <img src={cover} alt="" className={s.cover} />
