@@ -17,7 +17,7 @@ export const getSongInfos = async (title, artist) => {
 
     const genre = getGenreCategory(genreOfSong)
     console.log(genre)
-    return genre
+    return genre.toLowerCase()
   } catch (err) {
     console.error('Erreur Last.fm:', err)
     return 'default'

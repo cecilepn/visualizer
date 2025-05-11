@@ -11,7 +11,6 @@ class AudioController {
     this.audio.crossOrigin = 'anonymous'
     this.bpm = null
 
-    // this.audio.src = danceTheNight;
     this.audio.volume = 0.1
 
     this.audioSource = this.ctx.createMediaElementSource(this.audio)
@@ -47,8 +46,7 @@ class AudioController {
     const audioBuffer = await offlineCtx.decodeAudioData(buffer)
     // Use bpm-detective to detect the BPM
     this.bpm = detect(audioBuffer)
-    // console.log(`Detected BPM: ${this.bpm}`);
-    // return bpm;
+    return bpm
   }
 
   play = src => {

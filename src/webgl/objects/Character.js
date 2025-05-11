@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import audioController from '../../utils/AudioController'
 import scene from '../Scene'
 
-const getGenreModelPath = genre => `/models/dancing/${genre.toLowerCase()}.glb`
+const getGenreModelPath = genre => `/models/dancing/${genre}.glb`
 export default class Character {
   constructor() {
     this.group = null
@@ -56,7 +56,7 @@ export default class Character {
           }
         })
 
-        scene.scene.add(this.group)
+        // scene.scene.add(this.group)
 
         this.mixer = new THREE.AnimationMixer(this.group)
         const clip = gltf.animations[0]
@@ -70,7 +70,7 @@ export default class Character {
 
   update(deltaTime) {
     if (this.mixer) {
-      this.mixer.update(deltaTime / 1000)
+      this.mixer.update(deltaTime / 10000)
     }
   }
 }
