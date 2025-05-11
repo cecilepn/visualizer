@@ -1,15 +1,11 @@
-import { create } from "zustand";
-import TRACKS from "./TRACKS";
+import { create } from 'zustand'
 
-const useStore = create((set) => ({
-  // defaultTracks: TRACKS,
-
-  // la liste processed par la librairie, et prête à être rendue dans le DOM
+const useStore = create(set => ({
   tracks: [],
-  setTracks: (_tracks) =>
+  setTracks: _tracks =>
     set(() => ({
-      tracks: _tracks,
-    })),
-}));
+      tracks: _tracks
+    }))
+}))
 
-export default useStore;
+export default useStore

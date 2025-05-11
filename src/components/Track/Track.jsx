@@ -1,7 +1,7 @@
 import audioController from '../../utils/AudioController'
 import scene from '../../webgl/Scene'
-import { detectGenreWithAPI } from '../../utils/detectGenreWithAPI'
 import s from './Track.module.scss'
+import { getSongInfos } from '../../utils/getSongInfos'
 
 const Track = ({ title, cover, src, duration, artist, index }) => {
   const getSeconds = () => {
@@ -17,13 +17,12 @@ const Track = ({ title, cover, src, duration, artist, index }) => {
 
   const onClick = async () => {
     try {
-      const response = await fetch(src)
-      const blob = await response.blob()
-      const genre = await detectGenreWithAPI(blob)
-
       audioController.play(src)
       scene.cover.setCover(cover)
-      scene.setCharacterGenre(genre)
+
+      const genre = await getSongInfos(title, artist)
+      console.log(genre)
+      // scene.setCharacterGenre(genre)
     } catch (error) {
       console.error('Erreur lors du traitement du morceau :', error)
     }
@@ -38,6 +37,7 @@ const Track = ({ title, cover, src, duration, artist, index }) => {
           <span className={s.trackName}>{title}</span>
         </div>
       </div>
+      <span className={s.artistName}>{artist}</span>
       <span className={s.duration}>{getSeconds()}</span>
     </div>
   )
