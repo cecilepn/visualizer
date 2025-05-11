@@ -3,7 +3,7 @@ import scene from '../../webgl/Scene'
 import s from './Track.module.scss'
 import { getSongInfos } from '../../utils/getSongInfos'
 import useStore from '../../utils/store'
-import QueueBtn from '../QueueBtn/queueBtn'
+import QueueBtn from '../QueueBtn/QueueBtn'
 
 const Track = ({
   title,
