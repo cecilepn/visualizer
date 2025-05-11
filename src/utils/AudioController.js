@@ -49,7 +49,7 @@ class AudioController {
     const buffer = await response.arrayBuffer()
     const audioBuffer = await offlineCtx.decodeAudioData(buffer)
     this.bpm = detect(audioBuffer)
-    return bpm
+    return this.bpm
   }
 
   play = src => {

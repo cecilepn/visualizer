@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import audioController from './AudioController'
 
 const useStore = create(set => ({
   tracks: [],
@@ -27,11 +28,15 @@ const useStore = create(set => ({
 
   playNextInQueue: () =>
     set(state => {
-      if (state.queue.length === 0) return state
+      if (state.queue.length === 0) {
+        return { ...state, isPlaying: false }
+      }
       const [nextTrack, ...rest] = state.queue
+      audioController.play(nextTrack.src)
       return {
         currentTrack: nextTrack,
-        queue: rest
+        queue: rest,
+        isPlaying: true
       }
     })
 

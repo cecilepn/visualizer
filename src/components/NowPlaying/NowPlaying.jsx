@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import useStore from '../../utils/store'
 import s from './NowPlaying.module.scss'
 import audioController from '../../utils/AudioController'
@@ -7,6 +8,27 @@ const NowPlaying = () => {
   const currentTrack = useStore(state => state.currentTrack)
   const isPlaying = useStore(state => state.isPlaying)
   const setIsPlaying = useStore(state => state.setIsPlaying)
+  const playNextInQueue = useStore(state => state.playNextInQueue)
+
+  useEffect(() => {
+    const audio = audioController.audio
+    if (!audio) return
+    const handleEnded = () => {
+      console.log('fini')
+      playNextInQueue()
+    }
+    const handleTimeUpdate = () => {
+      if (audio.duration && audio.currentTime >= audio.duration - 0.1) {
+        playNextInQueue()
+      }
+    }
+    audio.addEventListener('ended', handleEnded)
+    audio.addEventListener('timeupdate', handleTimeUpdate)
+    return () => {
+      audio.removeEventListener('ended', handleEnded)
+      audio.removeEventListener('timeupdate', handleTimeUpdate)
+    }
+  }, [playNextInQueue])
 
   if (!currentTrack) return null
 

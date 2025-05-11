@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import useStore from '../../utils/store'
 import s from './Queue.module.scss'
-import { ChevronDown, ChevronUp } from 'lucide-react' // Utilisation des icônes pour les flèches
+import { ChevronDown, ChevronUp } from 'lucide-react'
 
 const Queue = () => {
   const queue = useStore(state => state.queue)
