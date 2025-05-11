@@ -5,6 +5,8 @@ const useStore = create(set => ({
   tracks: [],
   setTracks: tracks => set({ tracks }),
 
+  resetTracks: () => set({ tracks: [] }),
+
   currentTrack: null,
   setCurrentTrack: track => set({ currentTrack: track }),
 

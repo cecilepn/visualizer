@@ -75,6 +75,9 @@ const Tracks = () => {
           className={s.searchInput}
           onKeyDown={onKeyDown}
         />
+        <button className={s.resetButton} onClick={() => setTracks([])}>
+          Reset list
+        </button>
       </section>
     </>
   )

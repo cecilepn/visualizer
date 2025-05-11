@@ -99,3 +99,20 @@
     }
   }
 }
+
+.resetButton {
+  background-color: #ff5c5c7e;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+  position: absolute;
+  left: 24px;
+  bottom: 60px;
+  &:hover {
+    background-color: #ff3b3b;
+  }
+}
